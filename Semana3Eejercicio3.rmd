@@ -1,0 +1,69 @@
+---
+title: "Semana 3 Ejercicio 3"
+output: html_notebook
+---
+
+```{r}
+library(magrittr) # para %>%
+library(readr)
+library(stringr)
+```
+
+
+```{r}
+library(htmltab) 
+
+linkpage= "https://www.cia.gov/library/publications/resources/the-world-factbook/fields/211rank.html"
+linkpath='//*[@id="rankOrder"]'
+
+GDP = htmltab(doc = linkpage, 
+                which =linkpath)
+```
+```{r}
+#librerias
+library(magrittr) # para %>%
+library(readr)
+library(stringr)
+```
+
+
+1.Cambiando nombres
+```{r}
+names(GDP)=str_split(string = names(GDP), pattern = "-",simplify = T)[,1]
+```
+
+
+
+2.Reemplazando Y eliminando valores
+```{r}
+#comas por puntos
+GDP$GDP1=gsub(',',".",GDP$GDP)
+```
+
+```{r}
+GDP$GDP2=str_split(GDP$GDP1,pattern = '$',simplify = T)[,1]%>%parse_number()
+```
+
+
+```{r}
+GDP$GDP2=gsub('$',"", GDP$GDP2)
+```
+
+
+
+
+3.CONVERTIR A NUMÉRICO
+```{r}
+GDP$GDP2=as.numeric(GDP$GDP2)
+
+str(GDP)
+```
+
+Eliminando tablas inutiles
+```{r}
+GDP[,c(3,1)]=NULL
+GDP[,c(3,2)]=NULL
+```
+
+
+

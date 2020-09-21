@@ -1,0 +1,68 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+```{r}
+linkfree="https://en.wikipedia.org/wiki/List_of_freedom_indices"
+freepath='//*[@id="mw-content-text"]/div[1]/table[2]'
+free=htmltab(linkfree,freepath)
+
+```
+
+```{r}
+head(free)
+```
+
+```{r}
+free$Country=gsub("Â","",free$Country)
+```
+
+```{r}
+free$`Freedom in the World 2020`=gsub("not free","1",free$`Freedom in the World 2020`)
+free$`Freedom in the World 2020`=gsub("partly free","2",free$`Freedom in the World 2020`)
+free$`Freedom in the World 2020`=gsub("free","3",free$`Freedom in the World 2020`)
+```
+
+```{r}
+free$`2020 Press Freedom Index`=gsub("good situation","1",free$`2020 Press Freedom Index`)
+free$`2020 Press Freedom Index`=gsub("satisfactory situation","2",free$`2020 Press Freedom Index`)
+free$`2020 Press Freedom Index`=gsub("noticeable problems","3",free$`2020 Press Freedom Index`)
+free$`2020 Press Freedom Index`=gsub("difficult situation","4",free$`2020 Press Freedom Index`)
+free$`2020 Press Freedom Index`=gsub("very serious situation","5",free$`2020 Press Freedom Index`)
+free$`2020 Press Freedom Index`=gsub("n/a","0",free$`2020 Press Freedom Index`)
+```
+
+```{r}
+
+free$`2020 Index of Economic Freedom`=gsub("repressed","5",free$`2020 Index of Economic Freedom`)
+free$`2020 Index of Economic Freedom`=gsub("mostly unfree","4",free$`2020 Index of Economic Freedom`)
+free$`2020 Index of Economic Freedom`=gsub("moderately free","3",free$`2020 Index of Economic Freedom`)
+free$`2020 Index of Economic Freedom`=gsub("mostly free","2",free$`2020 Index of Economic Freedom`)
+free$`2020 Index of Economic Freedom`=gsub("free","1",free$`2020 Index of Economic Freedom`)
+free$`2020 Index of Economic Freedom`=gsub("n/a","0",free$`2020 Index of Economic Freedom`)
+
+```
+
+
+```{r}
+free$`2019 Democracy Index`=gsub("authoritarian regime","5", free$`2019 Democracy Index`)
+free$`2019 Democracy Index`=gsub("authoritarian regime","4", free$`2019 Democracy Index`)
+free$`2019 Democracy Index`=gsub("hybrid regime","3", free$`2019 Democracy Index`)
+free$`2019 Democracy Index`=gsub("flawed democracy","2", free$`2019 Democracy Index`)
+free$`2019 Democracy Index`=gsub("full democracy","1", free$`2019 Democracy Index`)
+free$`2019 Democracy Index`=gsub("n/a","0", free$`2019 Democracy Index`)
+
+```
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.

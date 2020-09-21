@@ -1,0 +1,106 @@
+---
+title: "Semana 3 ejercicio 1"
+output: html_notebook
+---
+
+Librerias
+```{r}
+library(magrittr) # para %>%
+library(readr)
+library(stringr)
+```
+
+
+
+```{r}
+linkPage="https://www.cia.gov/library/publications/resources/the-world-factbook/fields/274.html" 
+linkPath = '//*[@id="fieldListing"]'
+
+library(htmltab)
+emissions = htmltab(doc = linkPage, 
+                     which =linkPath) 
+
+```
+
+
+```{r}
+head(emissions)
+```
+
+Cambiando nombres
+```{r}
+emissions$co2=emissions$`Carbon dioxide emissions from consumption of energy` 
+```
+
+
+
+Separando números de palabras
+```{r}
+
+emissions$co2_2=str_split(emissions$co2, 'Mt', simplify= T)[,1] #dividir
+
+emissions$co2_n=str_split(emissions$co2_2, ' ', simplify= T)[,1]
+
+emissions[,c(2)]=NULL #eliminar
+
+```
+
+separando millones
+```{r}
+emissions$co2_u=str_split(emissions$co2_2, ' ', simplify= T)[,2]
+```
+
+Reemplazando datos
+-millones
+```{r}
+emissions$co2_u=replace(emissions$co2_u, emissions$co2_u=="million", 10**6)
+```
+
+billones
+```{r}
+emissions$co2_u=replace(emissions$co2_u, emissions$co2_u=="billion", 10**9)
+```
+
+```{r}
+emissions$co2_u=replace(emissions$co2_u, emissions$co2_u=="", 10**0)
+```
+
+Puntos
+```{r}
+emissions$co2_n=gsub(',',".",emissions$co2_n) 
+```
+
+
+parte n
+```{r}
+head(emissions)
+```
+
+```{r}
+str(emissions)
+```
+
+Números
+```{r}
+library(reprex)
+
+```
+
+Convertir a numérico:
+```{r}
+emissions$co2_n=as.numeric(emissions$co2_n)
+emissions$co2_u=as.numeric(emissions$co2_u)
+str(emissions)
+```
+
+```{r}
+emissions$co2_final=emissions$co2_n*emissions$co2_u
+```
+
+
+Borrando tablas sucias:
+```{r}
+emissions[,c(2,3)]=NULL
+emissions[,c(2,3)]=NULL
+```
+

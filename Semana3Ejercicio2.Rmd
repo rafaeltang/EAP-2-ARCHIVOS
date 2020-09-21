@@ -1,0 +1,46 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+Librerias:
+```{r}
+library(magrittr) # para %>%
+library(readr)
+library(stringr)
+```
+
+
+```{r}
+library(htmltab) 
+linkpage_democracy="https://en.wikipedia.org/wiki/Democracy_Index"
+linkPath_democracy='//*[@id="mw-content-text"]/div[1]/table[2]'
+democracy=htmltab(doc=linkpage_democracy, which = linkPath_democracy)
+
+```
+
+```{r}
+#primero sacamos A
+democracy$`Country >> Country`=gsub("Â","",democracy$`Country >> Country`)
+```
+
+```{r}
+names(democracy)=str_split(string = names(democracy), pattern = ">>",simplify = T)[,1]
+```
+
+```{r}
+names(democracy)=str_split(string = names(democracy), pattern = "Â",simplify = T)[,1]
+```
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+plot(cars)
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
