@@ -30,6 +30,13 @@ Cambiando nombres
 names(covid)=c("paises","casos","muertos","mortalidad","muertos por 100k de personas")
 ```
 
+Reseteando filas
+```{r}
+row.names(covid)=NULL 
+
+```
+
+
 Limpiando tabla: 
 ```{r}
 
