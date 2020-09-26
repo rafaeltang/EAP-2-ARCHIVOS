@@ -1,0 +1,62 @@
+---
+title: "covid 2"
+output: html_notebook
+---
+
+
+library
+```{r}
+library(htmltab)
+library(stringr)
+library(magrittr)
+library(rio)
+```
+
+
+Scrapping
+```{r}
+library(htmltab) 
+
+link = "https://coronavirus.jhu.edu/data/mortality"
+linkPath='//*[@id="root"]/div/div[2]/div/div/div/div/div[1]/div[2]/div[3]/div/table'
+
+covid = htmltab(doc = link, 
+                which =linkPath)
+
+```
+
+Cambiando nombres
+```{r}
+names(covid)=c("paises","casos","muertos","mortalidad","muertos por 100k de personas")
+```
+
+Limpiando tabla: 
+```{r}
+
+#Casos
+covid$casos=gsub(',',"",covid$casos) #reemplazo coma por punto y convierto a numérico
+covid$casos=as.numeric(covid$casos)
+
+#muertos
+covid$muertos=gsub(',',"",covid$muertos)  #reemplazo coma por punto y convierto a numérico
+covid$muertos=as.numeric(covid$muertos)
+
+#mortalidad
+covid$mortalidad=str_split(covid$mortalidad,   
+                         pattern = '%',
+                         simplify = T)[,1]  #separo porcentaje y me quedo con el número
+
+covid$mortalidad=as.numeric(covid$mortalidad)
+
+
+#muertos por 100 k
+covid$`muertos por 100k de personas`=as.numeric(covid$`muertos por 100k de personas`) #convertir a numérico
+
+#verificando estructura
+str(covid)
+```
+descargando datos a github
+```{r}
+write.csv(covid,"covid.csv", row.names = F)
+```
+
