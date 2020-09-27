@@ -27,7 +27,7 @@ covid = htmltab(doc = link,
 
 Cambiando nombres
 ```{r}
-names(covid)=c("paises","casos","muertos","mortalidad","muertos por 100k de personas")
+names(covid)=c("Country","cases","deads","mortality","deads per 100k person")
 ```
 
 Reseteando filas
@@ -41,23 +41,23 @@ Limpiando tabla:
 ```{r}
 
 #Casos
-covid$casos=gsub(',',"",covid$casos) #reemplazo coma por punto y convierto a numérico
-covid$casos=as.numeric(covid$casos)
+covid$cases=gsub(',',"",covid$cases) #reemplazo coma por punto y convierto a numérico
+covid$cases=as.numeric(covid$cases)
 
 #muertos
-covid$muertos=gsub(',',"",covid$muertos)  #reemplazo coma por punto y convierto a numérico
-covid$muertos=as.numeric(covid$muertos)
+covid$deads=gsub(',',"",covid$deads)  #reemplazo coma por punto y convierto a numérico
+covid$deads=as.numeric(covid$deads)
 
 #mortalidad
-covid$mortalidad=str_split(covid$mortalidad,   
+covid$mortality=str_split(covid$mortality,   
                          pattern = '%',
                          simplify = T)[,1]  #separo porcentaje y me quedo con el número
 
-covid$mortalidad=as.numeric(covid$mortalidad)
+covid$mortality=as.numeric(covid$mortality)
 
 
 #muertos por 100 k
-covid$`muertos por 100k de personas`=as.numeric(covid$`muertos por 100k de personas`) #convertir a numérico
+covid$`deads per 100k person`=as.numeric(covid$`deads per 100k person`) #convertir a numérico
 
 #verificando estructura
 str(covid)
